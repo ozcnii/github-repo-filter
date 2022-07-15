@@ -12,6 +12,7 @@ enum Filters {
   ALL,
   FORKS,
   NOT_FORKS,
+  SORT_BY_DATE_PUSHED,
 }
 
 const filterList = [
@@ -26,6 +27,10 @@ const filterList = [
   {
     name: "Not forks",
     filterName: Filters.NOT_FORKS,
+  },
+  {
+    name: "Sort by date pushed",
+    filterName: Filters.SORT_BY_DATE_PUSHED,
   },
 ];
 
@@ -47,6 +52,10 @@ export const ReposList: FC<UserReposProps> = ({ user }) => {
         return data?.filter((repo) => repo.fork === true);
       case Filters.NOT_FORKS:
         return data?.filter((repo) => repo.fork == false);
+      case Filters.SORT_BY_DATE_PUSHED:
+        return [...(data ?? [])].sort(
+          (a, b) => Date.parse(b.pushed_at) - Date.parse(a.pushed_at)
+        );
       default:
         return data;
     }
@@ -56,8 +65,8 @@ export const ReposList: FC<UserReposProps> = ({ user }) => {
 
   return (
     <div className="container mx-auto">
-      <div className="flex gap-3 px-1 items-center">
-        <ul className="flex gap-3 my-3">
+      <div className="flex gap-3 px-1 my-3 items-center">
+        <ul className="flex gap-3">
           {filterList.map((filter) => (
             <li
               className={`
@@ -76,7 +85,7 @@ export const ReposList: FC<UserReposProps> = ({ user }) => {
       </div>
 
       {repos && (
-        <ul className=" flex flex-wrap gap-3">
+        <ul className="flex flex-col gap-3">
           {repos.map((repo) => (
             <li key={repo.id}>
               <RepoCard repo={repo} />

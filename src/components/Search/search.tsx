@@ -51,11 +51,11 @@ export const Search: FC<SearchProps> = ({ selectUser }) => {
   };
 
   return (
-    <div className="container mx-auto mt-3 relative flex">
+    <div className="w-full relative flex">
       <input
         onFocus={focusHandler}
         autoFocus
-        className="bg-[#010409] border border-[#30363d] rounded-md focus:border-[#58a6ff] outline-none px-2 h-[36px] w-full"
+        className="bg-[#0d1117] border border-[#30363d] rounded-md focus:border-[#58a6ff] outline-none px-2 h-[36px] w-full"
         value={searchField}
         placeholder="enter username"
         onChange={(event) => setSearchField(event.target.value)}
@@ -63,7 +63,7 @@ export const Search: FC<SearchProps> = ({ selectUser }) => {
       {showMenu && (
         <div
           ref={ref}
-          className="bg-[#0d1117] border border-[#30363d] rounded-md absolute w-full top-[40px] min-h-[56px] max-h-[150px] overflow-y-scroll"
+          className="z-[5] shadow-[0_8px_24px_#010409] bg-[#0d1117] border border-[#30363d] rounded-md absolute w-full top-[40px] min-h-[56px] max-h-[150px] overflow-y-scroll"
         >
           {users && (
             <ul>
