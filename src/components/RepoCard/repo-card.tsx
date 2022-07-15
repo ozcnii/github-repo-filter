@@ -9,7 +9,7 @@ import { NavLink } from "../UI/NavLink/nav-link";
 import { RepoCardProps } from "./repo-card.props";
 
 export const RepoCard: FC<RepoCardProps> = ({ repo }) => {
-  const { ref, setShow, show } = useOutsideClick(false);
+  const { ref, setShow, show } = useOutsideClick<HTMLDivElement>(false);
 
   return (
     <div className="w-full items-center rounded-md border border-[#30363d] p-3 flex justify-between">
