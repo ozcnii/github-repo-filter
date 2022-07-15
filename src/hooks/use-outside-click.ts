@@ -1,16 +1,17 @@
 import { useCallback, useEffect, useRef, useState } from "react";
 
-export const useOutsideClick = <RefType extends HTMLElement>(
+export const useOutsideClick = <T extends HTMLElement>(
   initialValue: boolean
 ) => {
   const [show, setShow] = useState(initialValue);
-  const ref = useRef<RefType>(null);
+  const ref = useRef<T>(null);
 
   useEffect(() => {
-    const clickHandler = (event: any) => {
-      if (!ref.current || ref.current.contains(event.target)) {
-        return;
-      }
+    const isCurrentNode = (event: Event) =>
+      !ref.current || ref.current.contains((event?.target as Node) || null);
+
+    const clickHandler = (event: Event) => {
+      if (isCurrentNode(event)) return;
       setShow(false);
     };
 
